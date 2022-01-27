@@ -12,9 +12,13 @@ import android.provider.Settings
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.*
 import androidx.annotation.NonNull
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.motion.widget.Key.VISIBILITY
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.api.ResolvableApiException
@@ -55,6 +59,10 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.fab)
+        val cardView = findViewById<CardView>(R.id.cardView)
+        val numberOfSchedules = findViewById<TextView>(R.id.number_of_schedules)
+        val dash = findViewById<ImageView>(R.id.dash)
+        val relative = findViewById<RelativeLayout>(R.id.relative)
         val bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.sheet)).apply {
             peekHeight = 250
             this.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -63,8 +71,13 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     floatingActionButton.visibility = View.GONE
+                    numberOfSchedules.visibility = View.GONE
+                    dash.visibility = View.GONE
+                    cardView.visibility = View.VISIBLE
                 } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     floatingActionButton.visibility = View.VISIBLE
+                    numberOfSchedules.visibility = View.VISIBLE
+                    dash.visibility = View.VISIBLE
                 }
             }
 

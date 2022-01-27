@@ -6,10 +6,70 @@
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_schedule">
 
+
     <fragment
         android:id="@+id/maps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            app:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/menu_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_baseline_apps_24" />
+
+                <TextView
+                    android:id="@+id/plain_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/menu_image"
+                    android:text="Schedules"
+                    android:textSize="25sp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/calendar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_toEndOf="@+id/plain_text"
+                    android:layout_marginStart="80dp"
+                    android:src="@drawable/ic_baseline_calendar_today_24" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/calendar_image"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_edit_attributes_24" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 </RelativeLayout>

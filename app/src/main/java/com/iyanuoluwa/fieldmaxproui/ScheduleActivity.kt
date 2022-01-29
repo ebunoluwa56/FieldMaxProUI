@@ -1,48 +1,27 @@
 package com.iyanuoluwa.fieldmaxproui
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationRequest
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.*
-import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.motion.widget.Key.VISIBILITY
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
-import java.lang.Exception
-import java.util.jar.Manifest
 
 class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -55,9 +34,70 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val LOCATION_REQUEST_CODE = 1
     }
 
+    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var scheduleListItem : ScheduleListItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+
+        val myItems = listOf<ScheduleListItem>(
+            ScheduleListItem.DateAdded("Mon, Jun 17"),
+            ScheduleListItem.Schedules(  "Mon, Jun 17",
+                "Pep Store",
+                "I do not know",
+                "7:45",
+                "0000000000000",
+                "Not started")
+        )
+//        val myItems = listOf(
+//            RecyclerViewItem (
+//                "Mon, Jun 17",
+//                "Pep Store",
+//                "I do not know",
+//                "7:45",
+//                "0000000000000",
+//                "Not started"
+//            ),
+//            RecyclerViewItem (
+//                "Mon, Jun 17",
+//                "His Frozen Foods",
+//                "I do not know",
+//                "7:45",
+//                "0000000000000",
+//                "Not started"
+//            ),
+//            RecyclerViewItem (
+//                "Tue, Jun 17",
+//                "Shoprite",
+//                "I do not know",
+//                "7:45",
+//                "0000000000000",
+//                "Not started"
+//            ),
+//            RecyclerViewItem (
+//                "Tue, Jun 17",
+//                "Pep Store",
+//                "I do not know",
+//                "7:45",
+//                "0000000000000",
+//                "Not started"
+//            )
+////
+//        val consolidatedList = mutableListOf<ScheduleListItem>()
+//        for (date : String in groupedMap.keys) {
+//            consolidatedList.add(ScheduleListItem.DateAdded(date))
+//            val groupItems : List<ScheduleListItem>? = groupedMap[date]
+//            groupItems?.forEach {
+//                consolidatedList.add(ScheduleListItem.Schedules())
+//            }
+////        }
+//        adapter = RecyclerViewAdapter(consolidatedList)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.fab)
         val cardView = findViewById<CardView>(R.id.cardView)
         val numberOfSchedules = findViewById<TextView>(R.id.number_of_schedules)

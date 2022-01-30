@@ -45,7 +45,7 @@
                     android:layout_toEndOf="@+id/menu_image"
                     android:text="Schedules"
                     android:textSize="25sp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -63,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/calendar_image"
                     android:padding="10dp"
+                    android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_baseline_edit_attributes_24" />
 
 

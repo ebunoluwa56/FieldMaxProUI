@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ScheduleActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/fab"
+        android:background="@android:color/holo_red_dark"
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"/>
+
     <include layout="@layout/content_map" />
     <include layout="@layout/bottom_sheet"/>
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -35,74 +36,24 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private lateinit var adapter: RecyclerViewAdapter
-    private lateinit var scheduleListItem : ScheduleListItem
+    private val viewModel: SchedulesViewModel by viewModels {
+        ViewModelFactory((application as SchedulesApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-
-        val myItems = listOf<ScheduleListItem>(
-            ScheduleListItem.DateAdded("Mon, Jun 17"),
-            ScheduleListItem.Schedules(  "Mon, Jun 17",
-                "Pep Store",
-                "I do not know",
-                "7:45",
-                "0000000000000",
-                "Not started")
-        )
-//        val myItems = listOf(
-//            RecyclerViewItem (
-//                "Mon, Jun 17",
-//                "Pep Store",
-//                "I do not know",
-//                "7:45",
-//                "0000000000000",
-//                "Not started"
-//            ),
-//            RecyclerViewItem (
-//                "Mon, Jun 17",
-//                "His Frozen Foods",
-//                "I do not know",
-//                "7:45",
-//                "0000000000000",
-//                "Not started"
-//            ),
-//            RecyclerViewItem (
-//                "Tue, Jun 17",
-//                "Shoprite",
-//                "I do not know",
-//                "7:45",
-//                "0000000000000",
-//                "Not started"
-//            ),
-//            RecyclerViewItem (
-//                "Tue, Jun 17",
-//                "Pep Store",
-//                "I do not know",
-//                "7:45",
-//                "0000000000000",
-//                "Not started"
-//            )
-////
-//        val consolidatedList = mutableListOf<ScheduleListItem>()
-//        for (date : String in groupedMap.keys) {
-//            consolidatedList.add(ScheduleListItem.DateAdded(date))
-//            val groupItems : List<ScheduleListItem>? = groupedMap[date]
-//            groupItems?.forEach {
-//                consolidatedList.add(ScheduleListItem.Schedules())
-//            }
-////        }
-//        adapter = RecyclerViewAdapter(consolidatedList)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = RecyclerViewAdapter(viewModel.getSchedules())
         recyclerView.adapter = adapter
 
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.fab)
         val cardView = findViewById<CardView>(R.id.cardView)
         val numberOfSchedules = findViewById<TextView>(R.id.number_of_schedules)
         val dash = findViewById<ImageView>(R.id.dash)
-        val relative = findViewById<RelativeLayout>(R.id.relative)
+        val relativeLayout = findViewById<RelativeLayout>(R.id.relative)
         val bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.sheet)).apply {
             peekHeight = 250
             this.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -114,10 +65,13 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
                     numberOfSchedules.visibility = View.GONE
                     dash.visibility = View.GONE
                     cardView.visibility = View.VISIBLE
+                    relativeLayout.visibility = View.VISIBLE
                 } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     floatingActionButton.visibility = View.VISIBLE
                     numberOfSchedules.visibility = View.VISIBLE
                     dash.visibility = View.VISIBLE
+                    cardView.visibility = View.GONE
+                    relativeLayout.visibility = View.GONE
                 }
             }
 

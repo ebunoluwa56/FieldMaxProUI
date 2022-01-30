@@ -44,6 +44,7 @@ class RecyclerViewAdapter (
             )
             SCHEDULES -> (holder as ScheduleViewHolder).bind(
                 items[position] as ScheduleListItem.Schedules)
+
         }
 
     }
@@ -95,10 +96,9 @@ class RecyclerViewAdapter (
             visit.text = schedules.visit
             proceed.text = schedules.proceed
             val isExpandable : Boolean = schedules.isExpandable
-            expandableLayout.visibility = if (isExpandable) View.GONE else View.VISIBLE
+            expandableLayout.visibility = if (isExpandable) View.VISIBLE else View.GONE
             expandButton.setOnClickListener {
-                val expand = schedules
-                expand.isExpandable = !expand.isExpandable
+                expandableLayout.visibility = if (isExpandable) View.GONE else View.VISIBLE
             }
         }
     }

@@ -50,10 +50,10 @@ class ScheduleActivity : AppCompatActivity(), OnMapReadyCallback {
         recyclerView.adapter = adapter
 
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.fab)
-        val cardView = findViewById<CardView>(R.id.cardView)
+        val cardView = findViewById<CardView>(R.id.card_view)
         val numberOfSchedules = findViewById<TextView>(R.id.number_of_schedules)
         val dash = findViewById<ImageView>(R.id.dash)
-        val relativeLayout = findViewById<RelativeLayout>(R.id.relative)
+        val relativeLayout = findViewById<RelativeLayout>(R.id.relative_bottom)
         val bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.sheet)).apply {
             peekHeight = 250
             this.state = BottomSheetBehavior.STATE_COLLAPSED

@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 val intent = Intent(this, ScheduleActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "Empty fields not allowed!", Toast.LENGTH_SHORT).show()
             }

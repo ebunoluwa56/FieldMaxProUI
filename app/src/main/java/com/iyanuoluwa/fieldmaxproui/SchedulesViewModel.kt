@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 
 class SchedulesViewModel (private val schedulesRepository: SchedulesRepository) :ViewModel() {
     fun getSchedules() : MutableList<ScheduleListItem> {
-        val schedules = schedulesRepository.schedules.sortedBy{
+        val schedule = schedulesRepository.schedules.sortedBy{
             it.date
         }
-        val groupedSchedules = schedulesRepository.schedules.groupBy {
+        val groupedSchedules = schedule.groupBy {
             it.date
         }
         val scheduleListItem = mutableListOf<ScheduleListItem>()
